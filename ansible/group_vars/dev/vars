@@ -1,10 +1,10 @@
 ---
-git_branch: feature/CDEVO-2427
+git_branch: feature/API_tester
 aws_region: "eu-west-1"
 project_name: actimize
 slack_token: "{{vault_slack_token}}"
 aws_account: "376155643501"
-module_name: FCPAdapter
+module_name: FCPResourcetester
 
 duedil_private_key_value:  "{{ vault_duedil_private_key }}"
 duedil_client_crt_value: "{{ vault_duedil_client_crt }}"
