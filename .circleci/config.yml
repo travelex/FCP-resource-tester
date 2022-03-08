@@ -69,7 +69,7 @@ jobs:
                 sys.stdout.flush()
             EOF
             chmod +x entropy.py
-            cat entropy.py- checkout
+            cat entropy.py
 
 
       - run:
