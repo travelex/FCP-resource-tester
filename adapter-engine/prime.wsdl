@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.primeassociates.com/ComplianceManager/OFACReporter/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.primeassociates.com/ComplianceManager/OFACReporter/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.primeassociates.com/ComplianceManager/OFACReporter/">
+      <s:element name="getSearchResults">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orgcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlinput" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSearchResultsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSearchResultsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSearchResultsStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orgcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlinput" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSearchResultsStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSearchResultsStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getSearchResultsSoapIn">
+    <wsdl:part name="parameters" element="tns:getSearchResults" />
+  </wsdl:message>
+  <wsdl:message name="getSearchResultsSoapOut">
+    <wsdl:part name="parameters" element="tns:getSearchResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSearchResultsStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:getSearchResultsStatus" />
+  </wsdl:message>
+  <wsdl:message name="getSearchResultsStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:getSearchResultsStatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OFACReporterWSSoap">
+    <wsdl:operation name="getSearchResults">
+      <wsdl:input message="tns:getSearchResultsSoapIn" />
+      <wsdl:output message="tns:getSearchResultsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSearchResultsStatus">
+      <wsdl:input message="tns:getSearchResultsStatusSoapIn" />
+      <wsdl:output message="tns:getSearchResultsStatusSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OFACReporterWSSoap" type="tns:OFACReporterWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getSearchResults">
+      <soap:operation soapAction="http://www.primeassociates.com/ComplianceManager/OFACReporter/getSearchResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSearchResultsStatus">
+      <soap:operation soapAction="http://www.primeassociates.com/ComplianceManager/OFACReporter/getSearchResultsStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OFACReporterWSSoap12" type="tns:OFACReporterWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getSearchResults">
+      <soap12:operation soapAction="http://www.primeassociates.com/ComplianceManager/OFACReporter/getSearchResults" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSearchResultsStatus">
+      <soap12:operation soapAction="http://www.primeassociates.com/ComplianceManager/OFACReporter/getSearchResultsStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OFACReporterWS">
+    <wsdl:port name="OFACReporterWSSoap" binding="tns:OFACReporterWSSoap">
+      <soap:address location="http://localhost:8000/wsdl?wsdl" />
+    </wsdl:port>
+    <wsdl:port name="OFACReporterWSSoap12" binding="tns:OFACReporterWSSoap12">
+      <soap12:address location="http://localhost:8000/wsdl?wsdl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

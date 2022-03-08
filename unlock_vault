@@ -1,0 +1,27 @@
+#!/bin/sh
+
+PARAM_NAME=actimize-fcpofac-vault-passphrase
+
+if ! which jq > /dev/null; then
+  echo "This script requires 'jq'; install it with 'brew install jq'"
+  exit 1
+fi
+
+if ! which aws > /dev/null; then
+  echo "This script requires a recent 'aws'; install it with 'pip install awscli'"
+  exit 1
+fi
+
+PARAM_DATA=$(aws ssm get-parameters --names "${PARAM_NAME}" --with-decryption)
+
+if echo "${PARAM_DATA}" | jq .InvalidParameters | grep -q "${PARAM_NAME}"; then
+  echo "${PARAM_NAME} is missing from SSM; are you sure your AWS creds are set properly?"
+  echo
+  echo " ... otherwise maybe you're running this for the first time in this account,"
+  echo "in which case, run:"
+  echo
+  echo "    aws ssm put-parameter --name ${PARAM_NAME} --type SecureString --value THE_PASSPHRASE"
+  exit 1
+fi
+
+echo "${PARAM_DATA}" | jq -r '.Parameters[0].Value'

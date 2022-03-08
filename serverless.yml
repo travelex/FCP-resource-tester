@@ -1,0 +1,155 @@
+service:
+  name: fcp-adapter-app
+plugins:
+ - serverless-domain-manager
+ - serverless-offline
+serverless-offline:
+  port: 3001
+custom:
+  version: v1
+  customDomain:
+    domainName: api.${opt:stage, self:provider.stage}.fcpofac.travelex.net
+    certificateName: 'api.${opt:stage, self:provider.stage}.fcpofac.travelex.net'
+    basePath: ${self:custom.version}
+    endpointType: 'regional'
+    stages: ${opt:stage, self:provider.stage}
+    createRoute53Record: true
+  environments:
+    DUEDIL_URL_SCREENING:
+      dev: "https://api-dev.middleware-dev.tvx-test.cloud/realtime/v1/bcapi/cnr/screening?type=realtime"
+      sit: "https://api-sit.middleware-dev.tvx-test.cloud/realtime/v1/bcapi/cnr/screening?type=realtime"
+      uat: "https://api-uat.middleware-dev.tvx-test.cloud/realtime/v1/bcapi/cnr/screening?type=realtime"
+      preprod: "https://payments.uat.digital.travelex.net/v1/duedil/"
+      production: "https://api.middleware.tvx.cloud/realtime/v1/bcapi/cnr/screening?type=realtime"
+
+      #dev: "https://payments.testing.digital.travelex.net/v1/duedil/screening"
+      #sit: "https://payments.testing.digital.travelex.net/v1/duedil/screening"
+      #uat: "https://payments.uat.digital.travelex.net/v1/duedil/screening"
+      #production: "https://payments.production.digital.travelex.net/v1/duedil/"
+    DUEDIL_URL_STATUS:
+      dev: "https://api-dev.middleware-dev.tvx-test.cloud/realtime/v1/bcapi/cnr/status?ticketid="
+      sit: "https://api-sit.middleware-dev.tvx-test.cloud/realtime/v1/bcapi/cnr/status?ticketid="
+      uat: "https://api-uat.middleware-dev.tvx-test.cloud/realtime/v1/bcapi/cnr/status?ticketid="
+      preprod: "https://payments.uat.digital.travelex.net/v1/duedil/"
+      production: "https://api.middleware.tvx.cloud/realtime/v1/bcapi/cnr/status?ticketid="
+
+      #dev: "https://payments.testing.digital.travelex.net/v1/duedil/status/"
+      #sit: "https://payments.testing.digital.travelex.net/v1/duedil/status/"
+      #uat: "https://payments.uat.digital.travelex.net/v1/duedil/status/"
+      #production: "https://payments.production.digital.travelex.net/v1/duedil/"
+    LOG_LEVEL:
+      dev: "debug"
+      sit: "debug"
+      uat: "debug"
+      preprod: "error"
+      production: "error"
+    API_CERT: ${opt:stage}.eif.clientcert
+    API_KEY: ${opt:stage}.eif.privatekey
+    #API_CERT: ${opt:stage}.duedil.clientcert
+    #API_KEY: ${opt:stage}.duedil.privatekey
+
+provider:
+ name: aws
+ runtime: nodejs14.x
+ region: eu-west-1
+ timeout: 60
+ role: fcpadapterrole
+ vpc:
+  securityGroupIds:
+    - 'Fn::ImportValue': ${opt:stage}-actimize-base-securitygroups-FCPAdapterLambdaSGID
+  subnetIds: 
+    - 'Fn::ImportValue': ${opt:stage}-actimize-network-AppPrivateSubnet1AID
+    - 'Fn::ImportValue': ${opt:stage}-actimize-network-AppPrivateSubnet1BID
+ stage: dev
+#  stackName: sls-${self:service}-${opt:stage, self:provider.stage}-stack
+#  deploymentBucket:
+#     name: sls-${self:service}-${opt:stage, self:provider.stage}
+#     serverSideEncryption: AES256
+ tags:
+    application:  FCP Adapter
+ environment:
+    DUEDIL_URL_SCREENING: ${self:custom.environments.DUEDIL_URL_SCREENING.${opt:stage, self:provider.stage}}
+    DUEDIL_URL_STATUS: ${self:custom.environments.DUEDIL_URL_STATUS.${opt:stage, self:provider.stage}}
+    ENVIRONMENT: ${opt:stage, self:provider.stage}
+    DUEDIL_TIMEOUT : 25000
+    LOG_LEVEL: ${self:custom.environments.LOG_LEVEL.${opt:stage, self:provider.stage}}
+    TEST_DOMAIN: https://api.${opt:stage, self:provider.stage}.fcpofac.travelex.net/ofac
+    API_CERT: ${opt:stage}.eif.clientcert
+    API_KEY: ${opt:stage}.eif.privatekey
+    #API_CERT: ${opt:stage}.duedil.clientcert
+    #API_KEY: ${opt:stage}.duedil.privatekey
+    ERROR_RETRY_COUNT: 0
+    DELAY_IN_SECOND: 1
+
+functions:
+  screeningRequest:
+   handler: handler.handleRequest
+   description: FCP Adapter ${opt:stage, self:provider.stage} endpoint for real time check
+
+   events:
+     - http:
+          contentHandling:
+          path: /
+          method: post
+          integration: lambda
+          request:
+            passThrough:  NEVER
+            template:
+              text/xml: '{"body" : $input.json(''$'')}'
+          response:
+            headers:
+              Content-Type: "'text/xml;charset=utf-8'"
+              Access-Control-Allow-Origin: "'*'"
+            template: $input.path("$")
+            statusCodes:
+              200:
+                pattern: '.*' # Default response method
+                template:
+                  application/json: $input.path("$.body")
+                headers:
+                  Content-Type: "'text/xml;charset=utf-8'"
+
+resources:
+  Resources:
+    fcpadapterrole:
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            -
+              Action: "sts:AssumeRole"
+              Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+          Version: "2012-10-17"
+        ManagedPolicyArns:
+          - "arn:aws:iam::aws:policy/AWSLambdaFullAccess"
+          - "arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser"
+          - "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+          - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+        Policies:
+          -
+            PolicyDocument:
+              Statement:
+                -
+                  Action:
+                    - "logs:CreateLogGroup"
+                    - "logs:CreateLogStream"
+                    - "logs:PutLogEvents"
+                  Effect: Allow
+                  Resource:
+                    -
+                      ? "Fn::Join"
+                      :
+                        - ":"
+                        -
+                          - "arn:aws:logs"
+                          -
+                            Ref: "AWS::Region"
+                          -
+                            Ref: "AWS::AccountId"
+                          - "log-group:/aws/lambda/*:*:*"
+              Version: "2012-10-17"
+            PolicyName: "${opt:stage, self:provider.stage}-fcpadapter-inline-policy"
+        RoleName: "${opt:stage, self:provider.stage}-fcpadapter-role"
+      Type: "AWS::IAM::Role"

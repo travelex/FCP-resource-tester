@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="www.primeassociates.com/ComplianceManager/OFACReporter" targetNamespace="www.primeassociates.com/ComplianceManager/OFACReporter" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:element name="GETSEARCHRESULTSSTATUS">
+		<xs:annotation>
+			<xs:documentation>GETSEARCHRESULTSSTATUS method element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OUTPUT" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OUTPUT">
+		<xs:annotation>
+			<xs:documentation> GETSEARCHRESULTSSTATUS Method Response/Output Format</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="INPUT" minOccurs="0" maxOccurs="1"/>
+				<xs:choice>
+					<xs:sequence>
+						<xs:element ref="RESULTS" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+					<xs:element ref="ERROR" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Simple Type Declarations -->
+	<xs:element name="ANNOTATION" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Comments provided while reviewing the violation.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="APPROVED" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Determines if the Search State is approved or not</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="BRANCH" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Branch of the Organization using OFAC Reporter Web service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CIFRULE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> CifRule used to find match</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DATETIME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Date time field</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DEPT" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Department of Branch of the Organization using OFAC Reporter Web service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ERRORDESC" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Error Description</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ERRORNUM" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Error Number</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHINFO" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Any system information relating to the match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHNAME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> The party name against which the match is found.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHPROGRAM" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Program of the SDN Name.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHREMARKS" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>  Remarks of the SDN Name</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHTEXT" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The message text where the match has been found.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHTITLE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Title of the SDN name.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MATCHTYPE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Type of the SDN Name.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ORGANIZATION" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Customer Organization </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ORIGINALSDNNAME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Original SDN Name</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="REQUESTTIME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Determines the Time of OFACREPORTER Search</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RETURNORIGINALREQUEST" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Include original request in the response </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SOURCE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Application Accessing the webservice </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="STATUS">
+		<xs:annotation>
+			<xs:documentation> STATUS Description</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Unconfirmed"/>
+				<xs:enumeration value="Delegated"/>
+				<xs:enumeration value="Confirmed"/>
+				<xs:enumeration value="Waived"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TRANSACTIONID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Transaction ID of Customer OFACREPORTER check</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TRANSACTIONIDS">
+		<xs:annotation>
+			<xs:documentation> Transaction IDs of Customer OFACREPORTER check</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TRANSACTIONID" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="COUNT" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Complex Type Declarations -->
+	<xs:element name="APPROVESTATE" type="approvefield">
+		<xs:annotation>
+			<xs:documentation> Determines the APPROVED State of OFACREPORTER Search</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="INPUT">
+		<xs:annotation>
+			<xs:documentation> GETSEARCHRESULTSSTATUSSTATUS Method Request/Input Format</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ORGANIZATION" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="BRANCH" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="DEPT" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="SOURCE" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="RETURNORIGINALREQUEST" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="TRANSACTIONIDS" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MATCH">
+		<xs:annotation>
+			<xs:documentation> OFACREPORTER Check Match Details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MATCHNAME" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="ORIGINALSDNNAME" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="MATCHTEXT" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="MATCHTITLE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="MATCHPROGRAM" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="MATCHTYPE" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="MATCHREMARKS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="MATCHINFO" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="N" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MATCHES">
+		<xs:annotation>
+			<xs:documentation> Resultset of OFACREPORTER Check Matches</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MATCH" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="COUNT" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RESULT">
+		<xs:annotation>
+			<xs:documentation> OFACREPORTER TransactionID result Details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="MATCHES" minOccurs="1" maxOccurs="1"/>
+					<xs:element ref="SEARCHSTATE" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="APPROVESTATE" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="ANNOTATION" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="REQUESTTIME" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="CIFRULE" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+				<xs:element name="INFOMESSAGE" type="xs:string"/>
+			</xs:choice>
+			<xs:attribute name="N" type="xs:string" use="required"/>
+			<xs:attribute name="TRANSACTIONID" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RESULTS">
+		<xs:annotation>
+			<xs:documentation> Resultset of OFACREPORTER Transaction IDS</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RESULT" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="COUNT" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SEARCHSTATE" type="statusfield">
+		<xs:annotation>
+			<xs:documentation> Determines the State of OFACREPORTER Search</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- Custom Simple Type  Declarations -->
+	<xs:element name="ERROR" type="errorfield">
+		<xs:annotation>
+			<xs:documentation> GETSEARCHRESULTSSTATUS Error Message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- Custom Complex Type Declarations -->
+	<xs:complexType name="approvefield">
+		<xs:sequence>
+			<xs:element ref="APPROVED" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="DATETIME" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="errorfield">
+		<xs:sequence>
+			<xs:element ref="ERRORNUM" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="ERRORDESC" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="statusfield">
+		<xs:sequence>
+			<xs:element ref="STATUS" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="DATETIME" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

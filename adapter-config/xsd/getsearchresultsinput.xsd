@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="www.primeassociates.com/ComplianceManager/OFACReporter"
+	targetNamespace="www.primeassociates.com/ComplianceManager/OFACReporter" elementFormDefault="qualified"
+	attributeFormDefault="qualified">
+	<xs:element name="GETSEARCHRESULTS">
+		<xs:annotation>
+			<xs:documentation>GETSEARCHRESULTS method element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="INPUT" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="INPUT">
+		<xs:annotation>
+			<xs:documentation> GETSEARCHRESULTS Method Request/Input Format</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ORGANIZATION"  minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="BRANCH" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="DEPT" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="SOURCE" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="FILEIMG" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="USEDB" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="DELEGATED" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="RETURNORIGINALREQUEST" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="SEARCHDATA" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Attributes Declarations -->
+	<xs:attribute name="ALGORITHM" >
+		<xs:annotation>
+			<xs:documentation> Specifies which algorithm should be used for each field. Valid values are None, MatchFullName, MatchText.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="None" />
+				<xs:enumeration value="MatchFullName" />
+				<xs:enumeration value="MatchText" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:attribute name="MISSPELLING" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>- Indicates if misspelling rules should be applied to a field. </xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="MUSTALSOMATCHFIELDS" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> For a match to be considered, all the fields specified should also match against the corresponding Sanctioned Party entry. Enter the field name(s) as a comma separated list. The valid field names are City,Country,DateOfBirth,FullAddress,PartyName,PartyOtherDetails,State,Street</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="MUSTALSOMATCHTYPE">
+		<xs:annotation>
+			<xs:documentation> For a match to be considered, specify the rule to be used to match other fields. </xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="AllOf" />
+				<xs:enumeration value="AnyOf" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:attribute name="MUSTMATCHTYPE">
+		<xs:annotation>
+			<xs:documentation>  Allows you to specify what type(s) of Sanctioned Party records should be matched against this field.  Valid values are PartyName, StreetAddress, ChipsUid, SwiftTid, Airport, Seaport, Country, City, and KeyWord.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="USETEXTEXCLUDE" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Indicates if transactional text Exclude Name rules should be used. If false, only CIF Exclude Name rules will be used. Generally used to minimize false positive matches in high volume files, this should be set to true.  Note:  If Alg=MatchFullName, OFACFilter processing will only use CIF Exclude List even if UseTextExclude=true.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="VALUE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Value of the field.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<!-- Simple Type Declarations -->
+	<xs:element name="BRANCH" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Branch of the Organization using OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CITY">
+		<xs:annotation>
+			<xs:documentation> City of Customer/Party  on which OFAC search has to be performed</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+		    <xs:simpleContent>
+		        <xs:extension base="xs:string">
+		            <xs:attributeGroup ref="attrgroup" />
+		        </xs:extension>
+		    </xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="COUNTRY">
+		<xs:annotation>
+			<xs:documentation>Country of Customer/Party  on which OFAC search has to be performed</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			    <xs:simpleContent>
+				<xs:extension base="xs:string">
+				    <xs:attributeGroup ref="attrgroup" />
+				</xs:extension>
+			    </xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DELEGATED" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Boolean value used to indicate whether the violation review is delegated to other application or not.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DEPT" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Department of Branch of the Organization using OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="FILEIMG" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> File Image to be used for OFACREPORTER Check.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="FIRSTNAME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Customer First Name</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="FULLADDRESS">
+		<xs:annotation>
+			<xs:documentation>Customer Full Address to be checked. If it is not present then values of Street, City and Country will be used.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			    <xs:simpleContent>
+				<xs:extension base="xs:string">
+				    <xs:attributeGroup ref="attrgroup" />
+				</xs:extension>
+			    </xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FULLNAME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Customer Full Name to be checked. If it is not present then values of FirstName, MiddleName and LastName will be used.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LASTNAME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Customer Last Name</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MIDDLENAME" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Customer Middle Name</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="NAMEPREFIX" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Customer Name PREFIX (like Sir, Mr, Mrs etc)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="NAMESUFFIX" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Customer Name SUFFIX (like Jnr, Snr etc)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ORGANIZATION" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Organization using OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PARTYID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> ID of Customer/Party  on which OFAC search has to be performed</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="POSTALCODE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Customer Postal Code or Zip Code</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RETURNORIGINALREQUEST" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Boolean value to indicate to include original request in the response </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SOURCE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Application/Service invoking /calling OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="STATE">
+		<xs:annotation>
+			<xs:documentation> State of Customer/Party  on which OFAC search has to be performed</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+		    <xs:simpleContent>
+			<xs:extension base="xs:string">
+			    <xs:attributeGroup ref="attrgroup" />
+			</xs:extension>
+		    </xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="STREET">
+		<xs:annotation>
+			<xs:documentation> Street Address of Customer/Party  on which OFAC search has to be performed</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+		    <xs:simpleContent>
+			<xs:extension base="xs:string">
+			    <xs:attributeGroup ref="attrgroup" />
+			</xs:extension>
+		    </xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TRANSID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Transaction ID of Customer OFACREPORTER check</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="USEDB" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Boolean value used to indicate whether to use prime database to record violations and events or not.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- Complex Type Declarations -->
+	<xs:element name="PARTYADDRESS">
+		<xs:annotation>
+			<xs:documentation>Address of Customer or Party</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="FULLADDRESS" minOccurs="1" maxOccurs="1"/>
+				<xs:sequence>
+					<xs:element ref="STREET" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="CITY" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="STATE" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="POSTALCODE" minOccurs="0" maxOccurs="1" />
+					<xs:element ref="COUNTRY" minOccurs="1" maxOccurs="1" />
+				</xs:sequence>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PARTYNAME">
+		<xs:annotation>
+			<xs:documentation>Name of Customer/Party  on which OFAC search has to be performed </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element ref="FULLNAME" minOccurs="1" maxOccurs="1"/>
+				<xs:sequence>
+					<xs:element ref="NAMEPREFIX" minOccurs="0" maxOccurs="1" />
+					<xs:element ref="FIRSTNAME" minOccurs="1" maxOccurs="1" />
+					<xs:element ref="MIDDLENAME" minOccurs="0" maxOccurs="1" />
+					<xs:element ref="LASTNAME" minOccurs="1" maxOccurs="1"/>
+					<xs:element ref="NAMESUFFIX" minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="attrgroup" />
+		</xs:complexType>
+	</xs:element>
+	<!-- Custom Simple Type  Declarations -->
+	<xs:element name="DATEOFBIRTH" type="searchfield">
+		<xs:annotation>
+			<xs:documentation>Date of Birth of Customer/Party  on which OFAC search has to be performed.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PARTYOTHERDETAILS" type="searchfield">
+		<xs:annotation>
+			<xs:documentation>Other Details of Customer/Party  on which OFAC search has to be performed.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SEARCHDATA" type="srchdata">
+		<xs:annotation>
+			<xs:documentation> Customer DATA to be checked </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<!-- Custom Complex Type Declarations -->
+	<xs:attributeGroup name="attrgroup">
+		<xs:attribute ref="ALGORITHM" use="required" />
+		<xs:attribute ref="MISSPELLING" use="required" />
+		<xs:attribute ref="USETEXTEXCLUDE" use="required" />
+		<xs:attribute ref="MUSTMATCHTYPE" use="optional" />
+		<xs:attribute ref="MUSTALSOMATCHTYPE" use="optional" />
+		<xs:attribute ref="MUSTALSOMATCHFIELDS" use="optional" />
+	</xs:attributeGroup>
+	<xs:complexType name="srchdata">
+		<xs:sequence>
+			<xs:element ref="PARTYID" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="PARTYNAME" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="PARTYADDRESS" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="DATEOFBIRTH" minOccurs="0" maxOccurs="1" />
+			<xs:element ref="PARTYOTHERDETAILS" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="searchfield">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="attrgroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

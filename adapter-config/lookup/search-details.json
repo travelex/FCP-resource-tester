@@ -1,0 +1,111 @@
+[{
+
+    "applicationName": "RogueOne",
+    "applicationId": "R01",
+    "partIdPrefix": "101",
+    "generateTicket": true,
+    "transformDoB": false,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "WIRE",
+    "applicationId": "R02",
+    "partIdPrefix": "102",
+    "generateTicket": true,
+    "transformDoB": false,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "RTS",
+    "applicationId": "R03",
+    "partIdPrefix": "104",
+    "generateTicket": true,
+    "transformDoB": false,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "Blue Harvest",
+    "applicationId": "R04",
+    "partIdPrefix": "104",
+    "generateTicket": true,
+    "transformDoB": false,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "Magpie",
+    "applicationId": "R05",
+    "partIdPrefix": "105",
+    "generateTicket": true,
+    "transformDoB": false,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "SALT",
+    "applicationId": "R06",
+    "partIdPrefix": "106",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "FOXWEB",
+    "applicationId": "R07",
+    "partIdPrefix": "107",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "ACE",
+    "applicationId": "R08",
+    "partIdPrefix": "108",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "ACEQA",
+    "applicationId": "R08",
+    "partIdPrefix": "108",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "Shield",
+    "applicationId": "R09",
+    "partIdPrefix": "109",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": true
+},
+{
+    "applicationName": "TXM",
+    "applicationId": "R10",
+    "partIdPrefix": "110",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+},
+{
+    "applicationName": "Smartex",
+    "applicationId": "R12",
+    "partIdPrefix": "112",
+    "generateTicket": true,
+    "transformDoB": true,
+    "defaultDateFormat": "d/m/Y",
+    "isHyphen": false
+}
+
+]

@@ -1,0 +1,18 @@
+{
+
+    "clientFolderRootPath": "./clients",
+    "lookupFolderRootPath": "./adapter-config/lookup",
+    "xsdFolderPath":"./adapter-config/xsd",
+
+    "duedilServiceConnectTimeOutInSec": 30,
+    "duedilServiceReadTimeoutInSec": 30,
+
+    "sourceFieldToClientFolder": {
+        "salt": "salt",
+        "foxweb": "foxweb",
+        "ace": "ace",
+        "aceqa": "ace",
+        "shield": "shield",
+        "smartex": "smartex"
+    }
+}

@@ -1,3 +1,0 @@
-type: CUSTOM
-authorizerId:
-  'Fn::ImportValue': api-authorizer-id-${opt:stage}

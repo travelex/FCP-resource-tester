@@ -1,0 +1,465 @@
+[{
+        "trancationCountry": "Travelex Global",
+        "dept": "",
+        "businessUnit": "1_Global"
+    },
+    {
+        "trancationCountry": "Regulatory Restrictions for Data Privacy",
+        "dept": "",
+        "businessUnit": "1_Global_DataPrivacy"
+    },
+    {
+        "trancationCountry": "No Regulatory Restrictions for Data Privacy",
+        "dept": "",
+        "businessUnit": "1_Global_No_DataPrivacy"
+    },
+    {
+        "trancationCountry": "Employee Screening",
+        "dept": "",
+        "businessUnit": "1_Employee_Screening"
+    },
+    {
+        "trancationCountry": "Services for Employees with Regulatory Restrictions for Data Privacy",
+        "dept": "",
+        "businessUnit": "1_DP_Employee_Services"
+    },
+    {
+        "trancationCountry": "Local Compliance and Risk Services",
+        "dept": "",
+        "businessUnit": "1_Local_CR"
+    },
+    {
+        "trancationCountry": "Global Services (GDC/CC)",
+        "dept": "",
+        "businessUnit": "1_GS"
+    },
+    {
+        "trancationCountry": "Global Services for Employees",
+        "dept": "",
+        "businessUnit": "1_GS_Employee_Services"
+    },
+    {
+        "trancationCountry": "Australia",
+        "dept": "AU",
+        "businessUnit": "1_Australia"
+    },
+    {
+        "trancationCountry": "Bahrain",
+        "dept": "BH",
+        "businessUnit": "1_Bahrain"
+    },
+    {
+        "trancationCountry": "Belgium",
+        "dept": "BE",
+        "businessUnit": "1_Belgium"
+    },
+    {
+        "trancationCountry": "Canada",
+        "dept": "CA",
+        "businessUnit": "1_Canada"
+    },
+    {
+        "trancationCountry": "China",
+        "dept": "CN",
+        "businessUnit": "1_China"
+    },
+    {
+        "trancationCountry": "Czech Republic",
+        "dept": "CZ",
+        "businessUnit": "1_CzechRepublic"
+    },
+    {
+        "trancationCountry": "France",
+        "dept": "FR",
+        "businessUnit": "1_France"
+    },
+    {
+        "trancationCountry": "Germany",
+        "dept": "DG",
+        "businessUnit": "1_Germany"
+    },
+    {
+        "trancationCountry": "Germany",
+        "dept": "DE",
+        "businessUnit": "1_Germany"
+    },
+    {
+        "trancationCountry": "Hong Kong",
+        "dept": "HK",
+        "businessUnit": "1_HongKong"
+    },
+    {
+        "trancationCountry": "Italy",
+        "dept": "IT",
+        "businessUnit": "1_Italy"
+    },
+    {
+        "trancationCountry": "Japan",
+        "dept": "JP",
+        "businessUnit": "1_Japan"
+    },
+    {
+        "trancationCountry": "Malaysia",
+        "dept": "MY",
+        "businessUnit": "1_Malaysia"
+    },
+    {
+        "trancationCountry": "The Netherlands",
+        "dept": "NL",
+        "businessUnit": "1_Netherlands"
+    },
+    {
+        "trancationCountry": "NewZealand",
+        "dept": "NZ",
+        "businessUnit": "1_NewZealand"
+    }, {
+        "trancationCountry": "New Zealand",
+        "dept": "NZ",
+        "businessUnit": "1_NewZealand"
+    },
+    {
+        "trancationCountry": "Nigeria",
+        "dept": "",
+        "businessUnit": "1_Nigeria"
+    },
+    {
+        "trancationCountry": "Oman",
+        "dept": "OM",
+        "businessUnit": "1_Oman"
+    },
+    {
+        "trancationCountry": "Panama",
+        "dept": "",
+        "businessUnit": "1_Panama"
+    },
+    {
+        "trancationCountry": "Qatar",
+        "dept": "QA",
+        "businessUnit": "1_Qatar"
+    },
+    {
+        "trancationCountry": "Singapore",
+        "dept": "",
+        "businessUnit": "1_Singapore"
+    },
+    {
+        "trancationCountry": "South Africa",
+        "dept": "ZA",
+        "businessUnit": "1_SouthAfrica"
+    },
+    {
+        "trancationCountry": "Switzerland",
+        "dept": "CH",
+        "businessUnit": "1_Switzerland"
+    },
+    {
+        "trancationCountry": "Thailand",
+        "dept": "",
+        "businessUnit": "1_Thailand"
+    },
+    {
+        "trancationCountry": "Turkey",
+        "dept": "",
+        "businessUnit": "1_Turkey"
+    },
+    {
+        "trancationCountry": "UAE",
+        "dept": "AE",
+        "businessUnit": "1_UAE"
+    },
+    {
+        "trancationCountry": "United Kingdom",
+        "dept": "GB",
+        "businessUnit": "1_UnitedKingdom"
+    },
+    {
+        "trancationCountry": "United Kingdom",
+        "dept": "UK",
+        "businessUnit": "1_UnitedKingdom"
+    },
+    {
+        "trancationCountry": "United States of America / Guam",
+        "dept": "US",
+        "businessUnit": "1_UnitedStatesofAmericaGuam"
+    },
+    {
+        "trancationCountry": "Global Services for Australia",
+        "dept": "",
+        "businessUnit": "1_GS_Australia"
+    },
+    {
+        "trancationCountry": "Global Services for Bahrain",
+        "dept": "",
+        "businessUnit": "1_GS_Bahrain"
+    },
+    {
+        "trancationCountry": "Global Services for Belgium",
+        "dept": "",
+        "businessUnit": "1_GS_Belgium"
+    },
+    {
+        "trancationCountry": "Global Services for Canada",
+        "dept": "",
+        "businessUnit": "1_GS_Canada"
+    },
+    {
+        "trancationCountry": "Global Services for China",
+        "dept": "",
+        "businessUnit": "1_GS_China"
+    },
+    {
+        "trancationCountry": "Global Services for Czech Republic",
+        "dept": "",
+        "businessUnit": "1_GS_CzechRepublic"
+    },
+    {
+        "trancationCountry": "Global Services for France",
+        "dept": "",
+        "businessUnit": "1_GS_France"
+    },
+    {
+        "trancationCountry": "Global Services for Germany",
+        "dept": "",
+        "businessUnit": "1_GS_Germany"
+    },
+    {
+        "trancationCountry": "Global Services for Hong Kong",
+        "dept": "",
+        "businessUnit": "1_GS_HongKong"
+    },
+    {
+        "trancationCountry": "Global Services for Italy",
+        "dept": "",
+        "businessUnit": "1_GS_Italy"
+    },
+    {
+        "trancationCountry": "Global Services for Japan",
+        "dept": "",
+        "businessUnit": "1_GS_Japan"
+    },
+    {
+        "trancationCountry": "Global Services for Malaysia",
+        "dept": "",
+        "businessUnit": "1_GS_Malaysia"
+    },
+    {
+        "trancationCountry": "Global Services for The Netherlands",
+        "dept": "",
+        "businessUnit": "1_GS_Netherlands"
+    },
+    {
+        "trancationCountry": "Global Services for New Zealand",
+        "dept": "",
+        "businessUnit": "1_GS_NewZealand"
+    },
+    {
+        "trancationCountry": "Global Services for Nigeria",
+        "dept": "",
+        "businessUnit": "1_GS_Nigeria"
+    },
+    {
+        "trancationCountry": "Global Services for Oman",
+        "dept": "",
+        "businessUnit": "1_GS_Oman"
+    },
+    {
+        "trancationCountry": "Global Services for Panama",
+        "dept": "",
+        "businessUnit": "1_GS_Panama"
+    },
+    {
+        "trancationCountry": "Global Services for Qatar",
+        "dept": "",
+        "businessUnit": "1_GS_Qatar"
+    },
+    {
+        "trancationCountry": "Global Services for Singapore",
+        "dept": "",
+        "businessUnit": "1_GS_Singapore"
+    },
+    {
+        "trancationCountry": "Global Services for South Africa",
+        "dept": "",
+        "businessUnit": "1_GS_SouthAfrica"
+    },
+    {
+        "trancationCountry": "Global Services for Switzerland",
+        "dept": "",
+        "businessUnit": "1_GS_Switzerland"
+    },
+    {
+        "trancationCountry": "Global Services for Thailand",
+        "dept": "",
+        "businessUnit": "1_GS_Thailand"
+    },
+    {
+        "trancationCountry": "Global Services for Turkey",
+        "dept": "",
+        "businessUnit": "1_GS_Turkey"
+    },
+    {
+        "trancationCountry": "Global Services for UAE",
+        "dept": "",
+        "businessUnit": "1_GS_UAE"
+    },
+    {
+        "trancationCountry": "Global Services for United Kingdom",
+        "dept": "",
+        "businessUnit": "1_GS_UnitedKingdom"
+    },
+    {
+        "trancationCountry": "Global Services for United States of America / Guam",
+        "dept": "",
+        "businessUnit": "1_GS_UnitedStatesofAmericaGuam"
+    },
+    {
+        "trancationCountry": "Services for Employees in China",
+        "dept": "",
+        "businessUnit": "1_ES_China"
+    },
+    {
+        "trancationCountry": "Services for Employees in South Africa",
+        "dept": "",
+        "businessUnit": "1_ES_SouthAfrica"
+    },
+    {
+        "trancationCountry": "Services for Employees in Turkey",
+        "dept": "",
+        "businessUnit": "1_ES_Turkey"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Australia",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Australia"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Bahrain",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Bahrain"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Belgium",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Belgium"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Canada",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Canada"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in China",
+        "dept": "",
+        "businessUnit": "1_GS_ES_China"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Czech Republic",
+        "dept": "",
+        "businessUnit": "1_GS_ES_CzechRepublic"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in France",
+        "dept": "",
+        "businessUnit": "1_GS_ES_France"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Germany",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Germany"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Hong Kong",
+        "dept": "",
+        "businessUnit": "1_GS_ES_HongKong"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Italy",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Italy"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Japan",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Japan"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Malaysia",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Malaysia"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in The Netherlands",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Netherlands"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in New Zealand",
+        "dept": "",
+        "businessUnit": "1_GS_ES_NewZealand"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Nigeria",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Nigeria"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Oman",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Oman"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Panama",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Panama"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Qatar",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Qatar"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Singapore",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Singapore"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in South Africa",
+        "dept": "",
+        "businessUnit": "1_GS_ES_SouthAfrica"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Switzerland",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Switzerland"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Thailand",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Thailand"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in Turkey",
+        "dept": "",
+        "businessUnit": "1_GS_ES_Turkey"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in UAE",
+        "dept": "",
+        "businessUnit": "1_GS_ES_UAE"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in United Kingdom",
+        "dept": "",
+        "businessUnit": "1_GS_ES_UnitedKingdom"
+    },
+    {
+        "trancationCountry": "Global Services for Employees in United States of America / Guam",
+        "dept": "",
+        "businessUnit": "1_GS_ES_UnitedStatesofAmericaGuam"
+    },
+    {
+        "trancationCountry": "Global Services for GDC Employees",
+        "dept": "",
+        "businessUnit": "1_GS_ES_GDC_Employees"
+    }
+]

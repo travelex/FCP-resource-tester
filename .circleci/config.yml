@@ -138,8 +138,8 @@ jobs:
           name: Deploy FCP Resource Tester as AWS Lambda
           shell: /bin/bash
           command: |
-            cd common/serverless
             source .aws_creds
+            cd common/serverless
             serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
             export FCP_ENV=$(cat .fcpresourcetester_env)
             echo "Deploying To $FCP_ENV"

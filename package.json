@@ -1,0 +1,45 @@
+{
+  "name": "fcp-adapter-engine",
+  "version": "1.0.0",
+  "description": "FCP Ofac adapter built on node js and will be deployed as Lambda",
+  "scripts": {
+    "unit-test": "jest",
+    "integration-test": "cucumber-js ./adapter-test/integration-tests/features --tags @all --format json:./adapter-test/reports/cucumber-reports/cucumber-json-report.json & gulp cucumberReports",
+    "start": "serverless offline",
+    "deploy": "serverless deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/travelex/FCPAdapter.git"
+  },
+  "author": "Duedil Team",
+  "license": "Travelex India Pvt Ltd",
+  "os": [
+    "linux",
+    "win32"
+  ],
+  "dependencies": {
+    "aws-sdk": "2.420.0",
+    "bunyan": "1.8.12",
+    "fast-xml-parser": "3.12.14",
+    "hashmap": "2.3.0",
+    "he": "1.1.1",
+    "multi-hashmap": "1.0.0",
+    "node-datetime": "2.1.2",
+    "object-mapper": "5.0.0",
+    "request": "2.88.0",
+    "xmldoc": "1.1.2",
+    "serverless-domain-manager": "2.6.13"
+  },
+  "devDependencies": {
+    "babel-eslint": "10.0.1",
+    "chai": "^4.1.2",
+    "chai-string": "^1.5.0",
+    "cucumber": "^5.1.0",
+    "cucumber-html-reporter": "^4.0.5",
+    "eslint": "^5.15.1",
+    "gulp": "^3.9.1",
+    "jest": "^23.6.0",
+    "serverless-offline": "^3.33.0"
+  }
+}

@@ -1,0 +1,17 @@
+[{
+        "FILEIMG": "PEPANZSD",
+        "screeningType": "PEP"
+    },
+    {
+        "FILEIMG": "PEPNEMSD",
+        "screeningType": "PEP"
+    },
+    {
+        "FILEIMG": "PEPSD",
+        "screeningType": "PEP"
+    },
+    {
+        "FILEIMG": "PEPONLY",
+        "screeningType": "PEP"
+    }
+]

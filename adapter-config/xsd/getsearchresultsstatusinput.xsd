@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="www.primeassociates.com/ComplianceManager/OFACReporter" targetNamespace="www.primeassociates.com/ComplianceManager/OFACReporter" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:element name="GETSEARCHRESULTSSTATUS">
+		<xs:annotation>
+			<xs:documentation>GETSEARCHRESULTSSTATUS method element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="INPUT" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="INPUT">
+		<xs:annotation>
+			<xs:documentation> GETSEARCHRESULTSSTATUS Method Request/Input Format</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ORGANIZATION" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="BRANCH" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="DEPT" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="SOURCE" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="RETURNORIGINALREQUEST" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="TRANSACTIONIDS" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Simple Type Declarations -->
+	<xs:element name="BRANCH" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Branch of the Organization using OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DEPT" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Department of Branch of the Organization using OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ORGANIZATION" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Organization using OFAC Reporter Web service </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RETURNORIGINALREQUEST" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation> Boolean value to indicate to include original request in the response. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SOURCE" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Application/Service invoking /calling OFAC Reporter Web service</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TRANSACTIONID" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> Transaction ID of Customer OFACREPORTER check</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TRANSACTIONIDS">
+		<xs:annotation>
+			<xs:documentation> Transaction IDs of Customer OFACREPORTER check</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TRANSACTIONID" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="COUNT" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
