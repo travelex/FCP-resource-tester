@@ -1,0 +1,5 @@
+---
+- hosts: preprod
+  roles:
+    - ssm
+    - route53

@@ -1,0 +1,51 @@
+---
+
+  - name: Create username and password in aws parameter store.
+    aws_ssm_parameter_store:
+      name: "{{item.key}}"
+      description: "Username and password for {{aws_environment}}"
+      value: "{{item.value}}"
+      string_type: "SecureString"
+      overwrite_value: always
+    with_items:
+      - {"key": "{{aws_environment}}.foxweb.usersetup", "value": "{{foxweb_usersetup_value}}"}
+      - {"key": "{{aws_environment}}.salt.usersetup", "value": "{{salt_usersetup_value}}"}
+      - {"key": "{{aws_environment}}.ace.usersetup", "value": "{{ace_usersetup_value}}"}
+      - {"key": "{{aws_environment}}.shield.usersetup", "value": "{{shield_usersetup_value}}"}
+#      - {"key": "{{aws_environment}}.smartex.usersetup", "value": "{{smartex_usersetup_value}}"}
+
+  # Duedil private cert..
+  - name: Create Private key in aws parameter store.
+    aws_ssm_parameter_store:
+      name: "{{aws_environment}}.duedil.privatekey"
+      description: "Private Key for {{aws_environment}}"
+      value: "{{ duedil_private_key_value }}"
+      string_type: "SecureString"
+      overwrite_value: always
+
+  # Duedil private key..
+  - name: Create client certificate in aws parameter store.
+    aws_ssm_parameter_store:
+      name: "{{aws_environment}}.duedil.clientcert"
+      description: "Client certificate for {{aws_environment}}"
+      value: "{{ duedil_client_crt_value }}"
+      string_type: "SecureString"
+      overwrite_value: always
+
+  # EIF private cert..
+  - name: Create Private key in aws parameter store.
+    aws_ssm_parameter_store:
+      name: "{{aws_environment}}.eif.privatekey"
+      description: "Private Key for EIF {{aws_environment}}"
+      value: "{{ eif_private_key_value }}"
+      string_type: "SecureString"
+      overwrite_value: always
+
+  # EIF private key..
+  - name: Create client certificate in aws parameter store.
+    aws_ssm_parameter_store:
+      name: "{{aws_environment}}.eif.clientcert"
+      description: "Client certificate for EIF {{aws_environment}}"
+      value: "{{ eif_client_crt_value }}"
+      string_type: "SecureString"
+      overwrite_value: always

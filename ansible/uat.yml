@@ -1,0 +1,5 @@
+---
+- hosts: uat
+  roles:
+    - ssm
+    - route53

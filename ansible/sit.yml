@@ -1,0 +1,5 @@
+---
+- hosts: sit
+  roles:
+    - ssm
+    - route53

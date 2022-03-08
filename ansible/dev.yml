@@ -1,0 +1,5 @@
+---
+- hosts: dev
+  roles:
+    - ssm
+    - route53

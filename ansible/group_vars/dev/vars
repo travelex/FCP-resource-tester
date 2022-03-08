@@ -1,0 +1,18 @@
+---
+git_branch: feature/CDEVO-2427
+aws_region: "eu-west-1"
+project_name: actimize
+slack_token: "{{vault_slack_token}}"
+aws_account: "376155643501"
+module_name: FCPAdapter
+
+duedil_private_key_value:  "{{ vault_duedil_private_key }}"
+duedil_client_crt_value: "{{ vault_duedil_client_crt }}"
+eif_private_key_value:  "{{ vault_eif_private_key }}"
+eif_client_crt_value: "{{ vault_eif_client_crt }}"
+
+foxweb_usersetup_value: "{{ vault_foxweb_usersetup_value }}"
+salt_usersetup_value: "{{ vault_salt_usersetup_value }}"
+ace_usersetup_value: "{{ vault_ace_usersetup_value }}"
+shield_usersetup_value: "{{ vault_shield_usersetup_value }}"
+smartex_usersetup_value: "{{ vault_smartex_usersetup_value }}"

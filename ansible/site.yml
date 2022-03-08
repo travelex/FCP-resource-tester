@@ -1,0 +1,97 @@
+---
+# =============
+# Main Playbook
+# =============
+- hosts: all
+  gather_facts: true
+  tasks:
+
+  - name: "get git branch name"
+    command: /usr/bin/git rev-parse --abbrev-ref HEAD
+    register: git_output
+    changed_when: false
+    tags:
+      - always
+
+  - name: Branch is from Circle CI
+    debug:
+      msg: "Branch: {{lookup('env','CIRCLE_BRANCH')}}"
+    # when: lookup('env','CIRCLE_BRANCH') is defined and lookup('env','CIRCLE_BRANCH') == git_branch
+
+  - name: "fail if git branch name is not expected"
+    fail: msg="ERROR! Environment {{aws_environment}} expects to be built on {{git_branch}} but git is set to {{git_output.stdout}}. To fix this change the git_branch variable in group_vars/{{group_names[0]}}/vars"
+    when: not (
+      (lookup('env','CIRCLE_BRANCH') is defined and lookup('env','CIRCLE_BRANCH') == git_branch)
+      or
+      (git_output.stdout == git_branch or git_branch == "features"))
+    tags:
+      - always
+
+  - name: "get aws account number"
+    shell: >
+      aws sts get-caller-identity | jq -r .Account
+    register: account_output
+    changed_when: false
+    tags:
+      - always
+
+  - name: "fail if running in wrong account"
+    fail: msg="ERROR! Running in wrong account"
+    when: account_output.stdout != aws_account
+    tags:
+      - always
+
+  - name: Set default AWS region
+    command: "aws configure set default.region {{aws_region}}"
+    changed_when: false
+    tags:
+      - always
+
+  - name: "Register what we're up to"
+    command: "git --no-pager show -s --pretty=format:%s"
+    register: last_commit_message
+    changed_when: false
+    tags:
+      - slack
+
+  - name: Get icon
+    set_fact:
+      build_icon: "{{item}}"
+    with_random_choice:
+      - ":clippy-eyes:"
+      - ":trolldance:"
+      - ":hardhat:"
+      - ":bill:"
+      - ":bakeandroll:"
+
+  - name: "Tell #devops we're deploying"
+    slack:
+      token: "{{slack_token}}"
+      msg: |
+        :windows:
+        {{build_icon}} {{lookup('env', 'CIRCLE_USERNAME') if lookup('env', 'CIRCLE_USERNAME') is defined else ansible_user_gecos}} started an infrastructure roll-out in {{project_name}} {{aws_environment}} {{module_name}} - hold on!
+        _ {{last_commit_message.stdout}} _
+        "{{item}}"
+      icon_url: https://a.slack-edge.com/7f1a0/plugins/circleci/assets/service_512.png
+    ignore_errors: true
+    changed_when: false
+    with_random_choice:
+      - "Many chicken win against the pig"
+      - "Never ever copy paste from slack"
+      - "Regexps - they're all moon runes to me"
+      - "We never test in production"
+      - "Where are these commit subtitles coming from?"
+      - "I copied this quote from stackoverflow"
+      - "It worked first time!"
+      - "One does not simply commit direct to develop"
+    tags:
+      - slack
+
+# site.yml includes all other playbooks, as per Ansible best practice guide:
+# http://docs.ansible.com/ansible/playbooks_best_practices.html#top-level-playbooks-are-separated-by-role
+
+- import_playbook: dev.yml
+- import_playbook: sit.yml
+- import_playbook: uat.yml
+- import_playbook: preprod.yml
+- import_playbook: production.yml

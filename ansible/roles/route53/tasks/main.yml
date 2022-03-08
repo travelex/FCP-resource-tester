@@ -1,0 +1,122 @@
+---
+
+  - name: get acm certificate details.
+    shell: >
+      aws acm list-certificates | jq -r '.CertificateSummaryList[].DomainName' | grep 'api.{{aws_environment}}.{{ domain_name }}'
+    ignore_errors: true
+    register: cert_details
+
+  - name: Set fact Domain name.
+    set_fact:
+      cert_name: "{{cert_details.stdout}}"
+      required_cert_name: api.{{aws_environment}}.{{ domain_name }}
+
+  - name: Show value of the certificate name and require ceritifcate name.
+    debug:
+      msg: "{{ cert_name }} {{ required_cert_name }}"
+
+  - name: request acm certificate if it does not exist.
+    shell: >
+      aws acm request-certificate --domain-name api.{{aws_environment}}.{{ domain_name }} --validation-method DNS | jq -r '.CertificateArn'
+    when: cert_name != required_cert_name
+    register: certificatearn1
+
+  - name: Add Tag to requested certificate.
+    shell: >
+      aws acm add-tags-to-certificate --certificate-arn {{ certificatearn1.stdout }} --tags Key=Name,Value=api.{{aws_environment}}.{{ domain_name }} Key=ENVIRONMENT,Value={{aws_environment}} Key=Project,Value={{module_name}}
+    when: cert_name != required_cert_name
+
+    # This is needed since the very next api call for acm do not contain required values for creating rout53 record hence need a pause.
+  - name: Ansible Pause for 30 seconds.
+    pause:
+      seconds: 30
+    when: cert_name != required_cert_name
+
+
+  - name:  get record for acm certificate.
+    shell: >
+      aws acm describe-certificate --certificate-arn {{ certificatearn1.stdout }}
+    register: record1
+    when: cert_name != required_cert_name
+
+  - name: Get hosted zone id
+    shell: >
+      aws route53 list-hosted-zones-by-name --dns-name {{ domain_name }} --max-items 1 | jq -r '.HostedZones[0].Id | split("/")[-1]'
+    register: zone_id
+
+  - name: Create route 53 record for acm certificate dns validation.
+    route53:
+      overwrite: yes
+      state: present
+      zone: "{{domain_name}}"
+      record: "{{ record1.stdout | from_json | json_query('Certificate.DomainValidationOptions[0].ResourceRecord.Name') }}"
+      type: "{{ record1.stdout | from_json | json_query('Certificate.DomainValidationOptions[0].ResourceRecord.Type') }}"
+      value: "{{ record1.stdout | from_json | json_query('Certificate.DomainValidationOptions[0].ResourceRecord.Value') }}"
+      hosted_zone_id: "{{ zone_id.stdout }}"
+    when: cert_name != required_cert_name
+
+
+  - name: set cert arn if cert already exists
+    shell: >
+      aws acm list-certificates --query "CertificateSummaryList[] | [?DomainName=='api.{{aws_environment}}.{{ domain_name }}']" --output json | jq -c '.[]' | jq -r '.CertificateArn'
+    when: cert_name == required_cert_name
+    register: certificatearn2
+
+  - name: Add Tag to existing certificate. (Default behaviour - Overwrite)
+    shell: >
+      aws acm add-tags-to-certificate --certificate-arn {{ certificatearn2.stdout }} --tags Key=Name,Value=api.{{aws_environment}}.{{ domain_name }} Key=ENVIRONMENT,Value={{aws_environment}} Key=Project,Value={{project_name}}
+    when: cert_name == required_cert_name
+
+    # This is needed since the very next api call for acm do not contain required values for creating rout53 record hence need a pause.
+  - name: Ansible Pause for 30 seconds.
+    pause:
+      seconds: 30
+    when: cert_name == required_cert_name
+
+  - name:  get record for acm certificate.
+    shell: >
+      aws acm describe-certificate --certificate-arn {{ certificatearn2.stdout }}
+    register: record2
+    when: cert_name == required_cert_name
+
+  - name: Create route 53 record for acm certificate dns validation.
+    route53:
+      overwrite: yes
+      state: present
+      zone: "{{domain_name}}"
+      record: "{{ record2.stdout | from_json | json_query('Certificate.DomainValidationOptions[0].ResourceRecord.Name') }}"
+      type: "{{ record2.stdout | from_json | json_query('Certificate.DomainValidationOptions[0].ResourceRecord.Type') }}"
+      value: "{{ record2.stdout | from_json | json_query('Certificate.DomainValidationOptions[0].ResourceRecord.Value') }}"
+      hosted_zone_id: "{{ zone_id.stdout }}"
+    when: cert_name == required_cert_name
+
+
+  - block:
+      - name: Run the certificate check until status is ISSUED when cert_name not equals required_cert_name
+        shell:
+          aws acm describe-certificate --certificate-arn {{ certificatearn1.stdout }} | jq -r '.Certificate.Status' | grep 'ISSUED'
+        register: cert_status
+        until: cert_status.rc == 0
+        retries: 90
+        delay: 60
+        when: cert_name != required_cert_name
+    rescue:
+      - name: FAILED!!
+        shell:
+          echo "{{cert_status.stdout}} - Also check entry in Production Account Route 53 for NS record"
+          exit 1
+
+  - block:
+      - name: Run the certificate check until status is ISSUED when cert_name equals required_cert_name
+        shell:
+          aws acm describe-certificate --certificate-arn {{ certificatearn2.stdout }} | jq -r '.Certificate.Status' | grep 'ISSUED'
+        register: cert_status
+        until: cert_status.rc == 0
+        retries: 90
+        delay: 60
+        when: cert_name == required_cert_name
+    rescue:
+      - name: FAILED!!
+        shell:
+          echo "{{cert_status.stdout}} - Also check entry in Production Account Route 53 for NS record"
+          exit 1
