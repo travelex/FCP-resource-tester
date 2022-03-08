@@ -131,21 +131,21 @@ jobs:
           command: |
             npm install
             npm config set unsafe-perm true
-            npm install -g serverless@1.60.1
+            npm install -g serverless@2.50.0
             serverless --version
 
       - run:
           name: Deploy FCP Resource Tester as AWS Lambda
           shell: /bin/bash
           command: |
+            cd common/serverless
             source .aws_creds
             serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
             export FCP_ENV=$(cat .fcpresourcetester_env)
             echo "Deploying To $FCP_ENV"
-            #serverless create_domain --verbose --stage $FCP_ENV
+            serverless create_domain --verbose --stage $FCP_ENV
             serverless deploy --verbose --stage $FCP_ENV
           no_output_timeout: 60m
-
 
 
 workflows:
