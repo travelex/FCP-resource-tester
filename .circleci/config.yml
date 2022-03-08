@@ -35,41 +35,6 @@ jobs:
 
       - checkout
 
-      - run:
-          name: Install Python packages
-          working_directory: ansible
-          command: >
-            pip install -q -r requirements.txt
-
-      - run:
-          name: Install Ruby packages
-          working_directory: ansible
-          command: >
-            gem install bundler --no-ri --no-rdoc &&
-            bundle
-
-      - run:
-          name: Install Entropy scrubber
-          working_directory: ansible
-          command: |
-            cat << EOF > entropy.py
-            #!/usr/bin/python -u
-            import math
-            import sys
-            def entropy(string):
-                prob = [float(string.count(c)) / len(string) for c in dict.fromkeys(list(string))]
-                return - sum([p * math.log(p) / math.log(2.0) for p in prob])
-            for l in sys.stdin.readlines():
-                for a in l.split(' '):
-                    if entropy(a) > 3.5:
-                        print('*')
-                    else:
-                        sys.stdout.write(a)
-                    sys.stdout.write(' ')
-                sys.stdout.flush()
-            EOF
-            chmod +x entropy.py
-            cat entropy.py
 
       - run:
           name: Set FCP Authorizer env from branch
