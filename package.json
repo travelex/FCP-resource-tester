@@ -1,5 +1,5 @@
 {
-  "name": "fcp-resource-engine",
+  "name": "fcp-adapter-engine",
   "version": "1.0.0",
   "description": "FCP Ofac adapter built on node js and will be deployed as Lambda",
   "scripts": {
