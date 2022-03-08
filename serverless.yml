@@ -1,5 +1,5 @@
 service:
-  name: fcp-adapter-app
+  name: fcp-resource-tester
 plugins:
  - serverless-domain-manager
  - serverless-offline
