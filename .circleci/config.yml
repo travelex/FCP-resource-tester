@@ -37,7 +37,7 @@ jobs:
 
 
       - run:
-          name: Set FCP Authorizer env from branch
+          name: Set FCP Resource Tester env from branch
           shell: /usr/bin/python
           command: |
             import os, sys
@@ -50,9 +50,9 @@ jobs:
             if base_branch not in branches.keys():
                 print('Skipping deployments from {}'.format(base_branch))
                 sys.exit(1)
-            with open(".fcpauthorizer_env", "w") as f:
+            with open(".fcpresourcetester_env", "w") as f:
                 f.write(branches[base_branch])
-            with open(".fcpauthorizer_branch", "w") as f:
+            with open(".fcpresourcetester_branch", "w") as f:
                 f.write(base_branch)
 
       - run:
@@ -63,14 +63,14 @@ jobs:
             if /usr/bin/git log -1 --pretty=%B | /bin/cat | /bin/grep -i '\[USE PROD ACCOUNT\]'; then
               echo '[USE PROD ACCOUNT] Deploying to production account'
               export ASSUME_ARN="arn:aws:iam::613306592018:role/adminaccesstoactimizeprod"
-              echo 'production' > .fcpauthorizer_env
+              echo 'production' > .fcpresourcetester_env
             else
               echo 'Deploying to nonprod'
             fi
             export AWS_ACCESS_KEY_ID="$IAM_ID"
             export AWS_SECRET_ACCESS_KEY="$IAM_KEY"
             export AWS_DEFAULT_REGION="eu-west-1"
-            CREDS=$(aws sts assume-role --role-arn $ASSUME_ARN --role-session-name ci-build-fcpauthorizer --duration-seconds 28800)
+            CREDS=$(aws sts assume-role --role-arn $ASSUME_ARN --role-session-name ci-build-fcpresourcetester --duration-seconds 28800)
             cat << EOF > .aws_creds
             export AWS_DEFAULT_REGION="eu-west-1"
             export AWS_ACCESS_KEY_ID=$(jq -r .Credentials.AccessKeyId <<< $CREDS)
@@ -83,7 +83,7 @@ jobs:
           name: Deploy Infrastructure into AWS
           working_directory: ansible
           command: |
-            export ACT_ENV=$(cat ../.fcpauthorizer_env)
+            export ACT_ENV=$(cat ../.fcpresourcetester_env)
             echo "Deploying to $ACT_ENV"
             source ../.aws_creds
            # ansible-playbook -vvv -i inv/$ACT_ENV --vault-password-file=../unlock_vault site.yml --skip-tags=vagrant_only
@@ -99,12 +99,12 @@ jobs:
             serverless --version
 
       - run:
-          name: Deploy FCP Adapter as AWS Lambda
+          name: Deploy FCP Resource Tester as AWS Lambda
           shell: /bin/bash
           command: |
             source .aws_creds
             serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
-            export FCP_ENV=$(cat .fcpauthorizer_env)
+            export FCP_ENV=$(cat .fcpresourcetester_env)
             echo "Deploying To $FCP_ENV"
             serverless create_domain --verbose --stage $FCP_ENV
             serverless deploy --verbose --stage $FCP_ENV
