@@ -142,7 +142,7 @@ jobs:
             serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
             export FCP_ENV=$(cat .fcpresourcetester_env)
             echo "Deploying To $FCP_ENV"
-            serverless create_domain --verbose --stage $FCP_ENV
+            #serverless create_domain --verbose --stage $FCP_ENV
             serverless deploy --verbose --stage $FCP_ENV
           no_output_timeout: 60m
 
