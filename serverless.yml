@@ -1,5 +1,5 @@
 service:
-  name: fcp-resourcetester-app
+  name: fcp-adapter-app
 plugins:
  - serverless-domain-manager
  - serverless-offline
@@ -150,6 +150,6 @@ resources:
                             Ref: "AWS::AccountId"
                           - "log-group:/aws/lambda/*:*:*"
               Version: "2012-10-17"
-            PolicyName: "${opt:stage, self:provider.stage}-fcpresource-inline-policy"
-        RoleName: "${opt:stage, self:provider.stage}-fcpresource-role"
+            PolicyName: "${opt:stage, self:provider.stage}-fcpadapter-inline-policy"
+        RoleName: "${opt:stage, self:provider.stage}-fcpadapter-role"
       Type: "AWS::IAM::Role"
