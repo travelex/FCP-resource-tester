@@ -131,7 +131,7 @@ jobs:
           command: |
             npm install
             npm config set unsafe-perm true
-            npm install -g serverless@2.50.0
+            npm install -g serverless@1.60.1
             serverless --version
 
       - run:
