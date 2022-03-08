@@ -1,0 +1,6 @@
+.vscode
+.eslintrc.json
+node_modules
+#package-lock.json
+.serverless
+package-lock.json

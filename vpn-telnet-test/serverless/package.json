@@ -1,0 +1,26 @@
+{
+  "name": "vpn-telnet-test",
+  "version": "1.0.0",
+  "description": "Serverless lambda to telnet the vpn",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1028.0",
+    "mssql": "6.0.0",
+    "mysql": "^2.18.1",
+    "net": "^1.0.2",
+    "samba-client": "4.0.0",
+    "evil-dns": "0.2.0",
+    "smb2": "git+ssh://git@github.com:travelex/tvx-smb2-wrapper.git",
+    "request": "2.88.0",
+    "serverless-offline": "^8.3.1"
+  },
+  "directories": {
+    "lib": "./configs"
+  },
+  "devDependencies": {
+    "serverless-prune-plugin": "^1.4.1"
+  },
+  "contributors": [],
+  "author": "William",
+  "license": "[license]"
+}

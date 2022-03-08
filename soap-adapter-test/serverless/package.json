@@ -1,0 +1,22 @@
+{
+  "name": "soap-adapter-test",
+  "version": "1.0.0",
+  "description": "Serverless data api",
+  "main": "index.js",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "prettify-xml": "1.2.0",
+    "soap": "0.32.0",
+    "evil-dns": "0.2.0",
+    "mssql": "6.0.0"
+  },
+  "directories": {
+    "lib": "./configs"
+  },
+  "devDependencies": {
+    "serverless-prune-plugin": "^1.3.2"
+  },
+  "contributors": [],
+  "author": "Nitesh Jha",
+  "license": "[license]"
+}

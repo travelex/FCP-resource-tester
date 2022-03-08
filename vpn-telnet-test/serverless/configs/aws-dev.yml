@@ -1,0 +1,4 @@
+ENVIRONMENT: ${opt:stage, self:provider.stage}
+HOST: middleware-dev-auroradb-cluster.cluster-cru8qwyjjrlm.eu-west-1.rds.amazonaws.com
+USER: master
+PHRASE: something

@@ -1,0 +1,9 @@
+- process:
+    name: ${self:service}-${self:provider.stage}
+    description: utility soap adapter test
+    handler: src/handlers/${self:provider.name}/soap-adapter-handler.handler
+    timeout: 900
+    include:
+      - src/handlers/${self:provider.name}/soap-adapter-handler.js
+    environment:
+      VPC_SSM_ENDPOINT: ${self:custom.fromTerraform.middleware-vpc-endpoint-ssmparamstore}

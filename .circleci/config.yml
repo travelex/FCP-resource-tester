@@ -1,0 +1,154 @@
+version: 2
+jobs:
+
+  build-aws-env:
+    docker:
+      - image: tvxact/aws:0.0.3
+    steps:
+      - run:
+          name: Install builder OS packages
+          command: >
+            apk add --no-progress --no-cache
+            python
+            py-pip
+            libffi
+            python-dev
+            libffi-dev
+            gcc
+            musl-dev
+            openssl-dev
+            curl
+            jq
+            ruby
+            ruby-dev
+            build-base
+            libxml2-dev
+            libxslt-dev
+            linux-headers
+            py-psutil
+            jpeg-dev
+            zlib-dev
+            jq
+            git
+            nodejs
+            nodejs-npm
+
+      - checkout
+
+      - run:
+          name: Install Python packages
+          working_directory: ansible
+          command: >
+            pip install -q -r requirements.txt
+
+      - run:
+          name: Install Ruby packages
+          working_directory: ansible
+          command: >
+            gem install bundler --no-ri --no-rdoc &&
+            bundle
+
+      - run:
+          name: Install Entropy scrubber
+          working_directory: ansible
+          command: |
+            cat << EOF > entropy.py
+            #!/usr/bin/python -u
+            import math
+            import sys
+            def entropy(string):
+                prob = [float(string.count(c)) / len(string) for c in dict.fromkeys(list(string))]
+                return - sum([p * math.log(p) / math.log(2.0) for p in prob])
+            for l in sys.stdin.readlines():
+                for a in l.split(' '):
+                    if entropy(a) > 3.5:
+                        print('*')
+                    else:
+                        sys.stdout.write(a)
+                    sys.stdout.write(' ')
+                sys.stdout.flush()
+            EOF
+            chmod +x entropy.py
+            cat entropy.py
+
+      - run:
+          name: Set FCP Authorizer env from branch
+          shell: /usr/bin/python
+          command: |
+            import os, sys
+            branches = {'feature':'dev',
+                        'develop': 'sit',
+                        'release': 'uat',
+                        'hotfix': 'preprod',
+                        'master': 'preprod'}
+            base_branch = os.getenv('CIRCLE_BRANCH').split('/')[0]
+            if base_branch not in branches.keys():
+                print('Skipping deployments from {}'.format(base_branch))
+                sys.exit(1)
+            with open(".fcpauthorizer_env", "w") as f:
+                f.write(branches[base_branch])
+            with open(".fcpauthorizer_branch", "w") as f:
+                f.write(base_branch)
+
+      - run:
+          name: Set AWS Credentials env
+          shell: /bin/bash
+          command: |
+            export ASSUME_ARN="arn:aws:iam::376155643501:role/adminaccesstoactimizenonprod"
+            if /usr/bin/git log -1 --pretty=%B | /bin/cat | /bin/grep -i '\[USE PROD ACCOUNT\]'; then
+              echo '[USE PROD ACCOUNT] Deploying to production account'
+              export ASSUME_ARN="arn:aws:iam::613306592018:role/adminaccesstoactimizeprod"
+              echo 'production' > .fcpauthorizer_env
+            else
+              echo 'Deploying to nonprod'
+            fi
+            export AWS_ACCESS_KEY_ID="$IAM_ID"
+            export AWS_SECRET_ACCESS_KEY="$IAM_KEY"
+            export AWS_DEFAULT_REGION="eu-west-1"
+            CREDS=$(aws sts assume-role --role-arn $ASSUME_ARN --role-session-name ci-build-fcpauthorizer --duration-seconds 28800)
+            cat << EOF > .aws_creds
+            export AWS_DEFAULT_REGION="eu-west-1"
+            export AWS_ACCESS_KEY_ID=$(jq -r .Credentials.AccessKeyId <<< $CREDS)
+            export AWS_SECRET_ACCESS_KEY=$(jq -r .Credentials.SecretAccessKey <<< $CREDS)
+            export AWS_SESSION_TOKEN=$(jq -r .Credentials.SessionToken <<< $CREDS)
+            export no_proxy='*'
+            EOF
+
+      - run:
+          name: Deploy Infrastructure into AWS
+          working_directory: ansible
+          command: |
+            export ACT_ENV=$(cat ../.fcpauthorizer_env)
+            echo "Deploying to $ACT_ENV"
+            source ../.aws_creds
+           # ansible-playbook -vvv -i inv/$ACT_ENV --vault-password-file=../unlock_vault site.yml --skip-tags=vagrant_only
+          no_output_timeout: 60m
+
+      - run:
+          name: Install Serverless CLI and dependencies
+          shell: /bin/bash
+          command: |
+            npm install
+            npm config set unsafe-perm true
+            npm install -g serverless@1.60.1
+            serverless --version
+
+      - run:
+          name: Deploy FCP Adapter as AWS Lambda
+          shell: /bin/bash
+          command: |
+            source .aws_creds
+            serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
+            export FCP_ENV=$(cat .fcpauthorizer_env)
+            echo "Deploying To $FCP_ENV"
+            serverless create_domain --verbose --stage $FCP_ENV
+            serverless deploy --verbose --stage $FCP_ENV
+          no_output_timeout: 60m
+
+
+
+workflows:
+  version: 2
+  build-aws:
+    jobs:
+      - build-aws-env
