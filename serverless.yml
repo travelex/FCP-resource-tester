@@ -8,11 +8,11 @@ serverless-offline:
 custom:
   version: v1
   customDomain:
-    domainName: api.${opt:stage, self:provider.stage}.fcpofac.travelex.net
-    certificateName: 'api.${opt:stage, self:provider.stage}.fcpofac.travelex.net'
+    domainName: api.dev.fcpofac.travelex.net
+    certificateName: 'api.dev.fcpofac.travelex.net'
     basePath: ${self:custom.version}
     endpointType: 'regional'
-    stages: ${opt:stage, self:provider.stage}
+    stages: dev
     createRoute53Record: true
   environments:
     DUEDIL_URL_SCREENING:
@@ -43,10 +43,10 @@ custom:
       uat: "debug"
       preprod: "error"
       production: "error"
-    API_CERT: ${opt:stage}.eif.clientcert
-    API_KEY: ${opt:stage}.eif.privatekey
-    #API_CERT: ${opt:stage}.duedil.clientcert
-    #API_KEY: ${opt:stage}.duedil.privatekey
+    API_CERT: dev.eif.clientcert
+    API_KEY: dev.eif.privatekey
+    #API_CERT: dev.duedil.clientcert
+    #API_KEY: dev.duedil.privatekey
 
 provider:
  name: aws
@@ -56,10 +56,10 @@ provider:
  role: fcpadapterrole
  vpc:
   securityGroupIds:
-    - 'Fn::ImportValue': ${opt:stage}-actimize-base-securitygroups-FCPAdapterLambdaSGID
+    - 'Fn::ImportValue': dev-actimize-base-securitygroups-FCPAdapterLambdaSGID
   subnetIds: 
-    - 'Fn::ImportValue': ${opt:stage}-actimize-network-AppPrivateSubnet1AID
-    - 'Fn::ImportValue': ${opt:stage}-actimize-network-AppPrivateSubnet1BID
+    - 'Fn::ImportValue': dev-actimize-network-AppPrivateSubnet1AID
+    - 'Fn::ImportValue': dev-actimize-network-AppPrivateSubnet1BID
  stage: dev
 #  stackName: sls-${self:service}-${opt:stage, self:provider.stage}-stack
 #  deploymentBucket:
@@ -74,10 +74,10 @@ provider:
     DUEDIL_TIMEOUT : 25000
     LOG_LEVEL: ${self:custom.environments.LOG_LEVEL.${opt:stage, self:provider.stage}}
     TEST_DOMAIN: https://api.${opt:stage, self:provider.stage}.fcpofac.travelex.net/ofac
-    API_CERT: ${opt:stage}.eif.clientcert
-    API_KEY: ${opt:stage}.eif.privatekey
-    #API_CERT: ${opt:stage}.duedil.clientcert
-    #API_KEY: ${opt:stage}.duedil.privatekey
+    API_CERT: dev.eif.clientcert
+    API_KEY: dev.eif.privatekey
+    #API_CERT: dev.duedil.clientcert
+    #API_KEY: dev.duedil.privatekey
     ERROR_RETRY_COUNT: 0
     DELAY_IN_SECOND: 1
 
